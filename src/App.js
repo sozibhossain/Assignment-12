@@ -1,23 +1,46 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import Home from './Pages/Home/Home/Home';
+import Login from './Pages/Login/Login/Login';
+import Register from './Pages/Login/Register/Register';
+import NotFound from './Pages/NotFound/NotFound';
+import Dashboard from './Pages/Dashboard/Dashboard/Dashboard';
+import CarListing from './Pages/CarListing/CarListing/CarListing';
+import AuthProvider from './contexts/AuthProvider/AuthProvider';
+import PrivateRoute from './Pages/Login/PrivateRoute/PrivateRoute';
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <AuthProvider>
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/">
+              <Home></Home>
+            </Route>
+            <Route path="/home">
+              <Home></Home>
+            </Route>
+            <Route path="/login">
+              <Login></Login>
+            </Route>
+            <Route path="/register">
+              <Register></Register>
+            </Route>
+            <Route path="/dashboard">
+              <Dashboard></Dashboard>
+            </Route>
+            <PrivateRoute path="/carlisting">
+              <CarListing></CarListing>
+            </PrivateRoute>
+            <Route path="*">
+              <NotFound></NotFound>
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </AuthProvider>
+      
     </div>
   );
 }
